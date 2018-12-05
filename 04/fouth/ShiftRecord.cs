@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -5,17 +6,40 @@ namespace fouth
 {
     public class ShiftRecord
     {
-        public SimpleDate Date;
+        public DateTime Date;
 
         public int GuardId;
 
-        // index 0..59 represent each minute of the hour
-        // value 1 is asleep and 0 is awake
-        public int[] MinutesAsleep = new int[60];
+        public int TotalMinutesAsleep = 0;
+
+        private Dictionary<int, int> minutesAsleep = new Dictionary<int, int>(60);
+
+        public ShiftRecord(int id, DateTime date)
+        {
+            GuardId = id;
+            Date = date;
+        }
 
         public override string ToString()
         {
-            return $"{Date.Month:00}-{Date.Day:00} | Guard ID: {GuardId:0000} | Sleept {MinutesAsleep.Sum()} minutes";
+            return $"{Date.Month:00}-{Date.Day:00} | Guard ID: {GuardId:0000} | Sleept {TotalMinutesAsleep} minutes";
+        }
+
+        public void AddMinutesAsleep(int start, int end)
+        {
+            TotalMinutesAsleep += end - start;
+
+            for (int i = start; i < end; i++)
+            {
+                minutesAsleep[i] = 1 + (minutesAsleep.ContainsKey(i) ? minutesAsleep[i] : -1);
+            }
+        }
+
+        public int FavoriteMinute()
+        {
+            var max = minutesAsleep.OrderByDescending(d => d.Value).First();
+
+            return max.Key;
         }
     }
 
