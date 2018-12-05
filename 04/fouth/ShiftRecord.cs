@@ -12,7 +12,7 @@ namespace fouth
 
         public int TotalMinutesAsleep = 0;
 
-        private Dictionary<int, int> minutesAsleep = new Dictionary<int, int>(60);
+        public Dictionary<int, int> minutesAsleep = new Dictionary<int, int>(60);
 
         public ShiftRecord(int id, DateTime date)
         {
