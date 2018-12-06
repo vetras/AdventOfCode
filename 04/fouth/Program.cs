@@ -66,7 +66,7 @@ namespace fouth
             Console.WriteLine("{0}", max.Key);
             Console.WriteLine("{0}", max.Value.Item1);
             Console.WriteLine("{0}", max.Value.Item2.GuardId);
-            Console.WriteLine("{0}", max.Value.Item2.GuardId * max.Value.Item1);
+            Console.WriteLine("{0}", max.Value.Item2.GuardId * max.Key);
 
 
             Console.WriteLine("Press any key to terminate...");
