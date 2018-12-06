@@ -67,4 +67,5 @@ In the example above, Guard #99 spent minute 45 asleep more than any other guard
 
 What is the ID of the guard you chose multiplied by the minute you chose? (In the above example, the answer would be 99 * 45 = 4455.)
 
-SOLUTION> Try one: 27523 failed: too low
+SOLUTION> Try one: 27523 failed: too low (the error was a typo on the property)
+SOLUTION> Your puzzle answer was 53427.

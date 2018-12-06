@@ -22,7 +22,7 @@ namespace fouth
 
         public override string ToString()
         {
-            return $"{Date.Month:00}-{Date.Day:00} | Guard ID: {GuardId:0000} | Sleept {TotalMinutesAsleep} minutes";
+            return $"{Date.Month:00}-{Date.Day:00} | Guard #{GuardId:0000} | Sleept {TotalMinutesAsleep:000} minutes";
         }
 
         public void AddMinutesAsleep(int start, int end)

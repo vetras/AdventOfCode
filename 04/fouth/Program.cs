@@ -8,7 +8,7 @@ namespace fouth
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello Elves!");
 
             var lines = Reader.ReadFile(Constants.DATA_FILE);
 
@@ -18,21 +18,33 @@ namespace fouth
 
             var shiftsList = shifts.Values.ToList();
 
-            shiftsList.ForEach(x => Console.WriteLine("Shift: {0}", x));
+            Console.WriteLine("");
+            Console.WriteLine("All Shifts Recorded:");
+            shiftsList.ForEach(x => Console.WriteLine("   Shift: {0}", x));
 
             var maxSleep = shiftsList.Max(y => y.TotalMinutesAsleep);
             var maxSleeper = shiftsList.First(x => x.TotalMinutesAsleep == maxSleep);
+            var fav = maxSleeper.FavoriteMinute();
 
             Console.WriteLine("");
-            Console.WriteLine("The guard that slept the most:");
-            Console.WriteLine("   Guard ID: {0}", maxSleeper.GuardId);
-            Console.WriteLine("   Slept {0} minutes.", maxSleeper.TotalMinutesAsleep);
-            Console.WriteLine("   Favorite Minute: {0}", maxSleeper.FavoriteMinute());
+            Console.WriteLine("The guard that slept the most was:");
+            Console.WriteLine("   Guard #{0} which slept {1} minutes!", maxSleeper.GuardId, maxSleeper.TotalMinutesAsleep);
+            Console.WriteLine("   Favorite Minute: {0}", fav);
             Console.WriteLine("");
-            Console.WriteLine("Solution: ID * Minute = {0}", maxSleeper.FavoriteMinute() * maxSleeper.GuardId);
+            Console.WriteLine("Solution Part 1: ID * Favorite Minute = {0}", fav * maxSleeper.GuardId);
             Console.WriteLine("");
 
-            /* minute : maxSleepTime, guard */
+            // Part 2
+            // Of all guards, which guard is most frequently asleep on the same minute?
+            //
+            // To solve this, lets build an array of minutes, 1 to 59
+            // On each minute we are saving two things: the guard that sleept the most, and how much.
+            // So, For each minute we iterate all guards, then we
+            // Get the time the guard splet on the current minute and we update the array to keep only the max value.
+            // After this, we just need to find the maximum amount of time sleept on the array,
+            // and we have the guard ID and the index of the array that tells us the minute.
+            //
+            //                      minute , <maxSleepTime, guard>
             var result = new Dictionary<int, Tuple<int, ShiftRecord>>();
 
             for (int i = 0; i < 60; i++)
@@ -45,10 +57,10 @@ namespace fouth
                         time = shift.minutesAsleep[i];
                     }
 
-                    // eu ja tenho para este minuto um valor??
+                    // have we saved any value on this minute?
                     if (result.ContainsKey(i))
                     {
-                        // o valor que eu tenho é mais alto que este?
+                        // is this value greater than what we have?
                         if (result[i].Item1 < time)
                         {
                             result[i] = new Tuple<int, ShiftRecord>(time, shift);
@@ -63,53 +75,14 @@ namespace fouth
 
             var max = result.OrderByDescending(d => d.Value.Item1).First();
 
-            Console.WriteLine("{0}", max.Key);
-            Console.WriteLine("{0}", max.Value.Item1);
-            Console.WriteLine("{0}", max.Value.Item2.GuardId);
-            Console.WriteLine("{0}", max.Value.Item2.GuardId * max.Key);
-
-
+            Console.WriteLine("");
+            Console.WriteLine("Guard #{0} spent minute {1} asleep more than any other guard on any other minute.", max.Value.Item2.GuardId, max.Key);
+            Console.WriteLine("With a total of {0} minutes across all shifts.", max.Value.Item1);
+            Console.WriteLine("");
+            Console.WriteLine("Solution Part 2: ID * Minute = {0}", max.Value.Item2.GuardId * max.Key);
+            Console.WriteLine("");
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
-
     }
 }
-
-//shiftsList.ForEach(shift =>
-//{
-//    shift.minutesAsleep.Keys.ToList().ForEach(minute =>
-//    {
-//    // eu ja tenho para este minuto um valoe??
-//    // se sim, é max?
-//    if (result.ContainsKey(minute))
-//        {
-//            if (result[0] < shift.minutesAsleep[minute])
-//            {
-//                result[0] = shift.minutesAsleep[minute];
-//            }
-//        }
-//        else
-//        {
-//            result[0] = shift.minutesAsleep[minute];
-//        }
-//    });
-
-//});
-
-
-//var result = new Dictionary<int, ShiftRecord>(60);
-//for (int i = 0; i< 60; i++)
-//{
-//var temp = shiftsList.Max(x => x.minutesAsleep[i]);
-//var shift = shiftsList.First(x => x.TotalMinutesAsleep == temp);
-//result[i] = shift;
-//}
-
-///* timeAsleep, guard */
-//var result2 = new Dictionary<int, ShiftRecord>(60);
-//for (int i = 0; i<result.Count; i++)
-//{
-//var time = result[i].minutesAsleep[i];
-//result2[time] = result[i];
-//}
