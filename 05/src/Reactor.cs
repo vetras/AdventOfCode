@@ -4,7 +4,7 @@ namespace fifth
 {
     public class Reactor
     {
-        private StringBuilder reaction = new StringBuilder();
+        private readonly StringBuilder reaction = new StringBuilder();
 
         public string Burn(string polymer)
         {
@@ -33,9 +33,9 @@ namespace fifth
 
             var last = lastOrNull.Value;
 
-            if (typeOf(last) == typeOf(letter))
+            if (TypeOf(last) == TypeOf(letter))
             {
-                if (polarity(last) != polarity(letter))
+                if (Polarity(last) != Polarity(letter))
                 {
                     DeleteLastLetter();
                     return;
@@ -43,6 +43,15 @@ namespace fifth
             }
 
             reaction.Append(letter);
+        }
+
+        public string Terminate()
+        {
+            var result = reaction.ToString();
+
+            reaction.Clear();
+
+            return result;
         }
 
         private void DeleteLastLetter()
@@ -64,17 +73,15 @@ namespace fifth
             return reaction[reaction.Length - 1];
         }
 
-        public string Terminate()
+        private int Polarity(char letter)
         {
-            return reaction.ToString();
-        }
-
-        private int polarity(char letter)
-        {
+            // this method only does implicit casting to int so that we can compare polarity.
+            // althoug it can be inlined (removed) I think having the method improves code 
+            // readability and intent of the operation
             return letter;
         }
 
-        private int typeOf(char letter)
+        private int TypeOf(char letter)
         {
             return letter.ToString().ToLowerInvariant()[0];
         }

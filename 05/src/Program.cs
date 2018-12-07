@@ -19,8 +19,17 @@ namespace fifth
 
             var result = reactor.Burn(polymer);
 
-            Console.WriteLine(result.Length);
+            Console.WriteLine("SOLUTION 1:");
+            Console.WriteLine($"  The result of processing the polymer has a length of {result.Length}.");
             Console.WriteLine("");
+
+            var x = new BruteForceReactorOptimizer(reactor);
+            var bestResult = x.Optimize(polymer);
+
+            Console.WriteLine("SOLUTION 2:");
+            Console.WriteLine($"  Removing all '{bestResult.LetterRemoved}' units was best, producing a polymer that has a length of {bestResult.EndPolymer.Length}.");
+            Console.WriteLine("");
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
 
