@@ -1,7 +1,5 @@
 const sep = "\n";
 const tree = "#";
-const xIncrement = 1;
-const yIncrement = 3;
 
 function skipEmptyLines(line: string): boolean {
   return line !== null && line.length > 0;
@@ -14,12 +12,16 @@ function debug(...args: any[]) {
 export default class Map {
   private readonly rows: string[] = [];
   private readonly numberOfColumns: number = 0;
+  private readonly xIncrement: number;
+  private readonly yIncrement: number;
   private x: number = 0;
   private y: number = 0;
   private map: string = "";
 
-  constructor(map: string) {
+  constructor(map: string, xIncrement: number = 1, yIncrement: number = 3) {
     this.map = map;
+    this.xIncrement = xIncrement;
+    this.yIncrement = yIncrement;
     this.rows = this.map
       .split(sep)
       .filter(skipEmptyLines);
@@ -27,24 +29,16 @@ export default class Map {
   }
 
   public countTress() {
+    const numberOfSlopes = this.rows.length / this.xIncrement;
     let count = 0;
-    for (let i = 0; i < this.numberOfRows(); i++) {
-      count = this.extracted(count);
+    for (let i = 0; i < numberOfSlopes; i++) {
+      if (this.isTree(this.pos(this.x, this.y))) {
+        count++;
+      }
+      this.x += this.xIncrement;
+      this.y += this.yIncrement;
     }
     return count;
-  }
-
-  private extracted(count: number) {
-    if (this.isTree(this.pos(this.x, this.y))) {
-      count++;
-    }
-    this.x += xIncrement;
-    this.y += yIncrement;
-    return count;
-  }
-
-  public numberOfRows() {
-    return this.rows.length;
   }
 
   private pos(x: number, y: number): string {
