@@ -3,14 +3,14 @@ const keyValueSep = ":";
 export default class Passport {
   public static readonly FieldSeparator = " ";
 
-  private byr: string = ""; // (Birth Year)
-  private iyr: string = ""; // (Issue Year)
-  private eyr: string = ""; // (Expiration Year)
-  private hgt: string = ""; // (Height)
-  private hcl: string = ""; // (Hair Color)
-  private ecl: string = ""; // (Eye Color)
-  private pid: string = ""; // (Passport ID)
-  private cid: string = ""; // (Country ID)
+  protected byr: string = ""; // (Birth Year)
+  protected iyr: string = ""; // (Issue Year)
+  protected eyr: string = ""; // (Expiration Year)
+  protected hgt: string = ""; // (Height)
+  protected hcl: string = ""; // (Hair Color)
+  protected ecl: string = ""; // (Eye Color)
+  protected pid: string = ""; // (Passport ID)
+  protected cid: string = ""; // (Country ID)
 
   constructor(data: string) {
     const keyValuePairs = data.split(Passport.FieldSeparator);
@@ -19,7 +19,7 @@ export default class Passport {
     }
   }
 
-  isValid() {
+  isValid(): boolean {
     return (this.byr.length !== 0) &&
       (this.iyr.length !== 0) &&
       (this.eyr.length !== 0) &&

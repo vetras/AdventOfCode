@@ -4,8 +4,12 @@ const lineTermination = "\n";
 
 export default class PassportParser {
   private passports: Passport[] = [];
+  private passportCreator: (str: string) => Passport = (str) => new Passport(str);
 
-  constructor(data: string) {
+  constructor(data: string, fn: any = null) {
+    if(fn) {
+      this.passportCreator = fn;
+    }
     const lines = data.split(lineTermination);
     let currentPassport = [];
 
@@ -27,7 +31,7 @@ export default class PassportParser {
 
   private buildPassport(currentPassport: any[]) {
     const current = currentPassport.join(Passport.FieldSeparator);
-    this.passports.push(new Passport(current.trim()));
+    this.passports.push(this.passportCreator(current.trim()));
   }
 
   getNumberOfValidPassports() {
