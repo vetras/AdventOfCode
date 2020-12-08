@@ -1,4 +1,4 @@
-import {test, assertEquals} from "./unit-tests.ts";
+import {test, assertEquals} from "../common/unit-test-helpers.ts";
 import Passport from "./passport.ts";
 
 test("First passport should be valid", () => {

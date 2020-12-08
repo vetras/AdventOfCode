@@ -1,14 +1,5 @@
-import {assertEquals} from "https://deno.land/std@0.79.0/testing/asserts.ts";
 import Map from "./map.ts";
-
-function test(name: string, fn: () => void | Promise<void>) {
-  Deno.test({
-    name,
-    fn,
-    sanitizeResources: true,
-    sanitizeOps: true
-  });
-}
+import {test, assertEquals} from "./../common/unit-test-helpers.ts";
 
 const data = await Deno.readTextFile("sample-map.txt");
 

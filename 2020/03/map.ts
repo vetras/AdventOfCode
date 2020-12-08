@@ -1,8 +1,12 @@
 const sep = "\n";
-const tree = "#";
+const TREE = "#";
 
 function skipEmptyLines(line: string): boolean {
   return line !== null && line.length > 0;
+}
+
+function isTree(s: string): boolean {
+  return s === TREE;
 }
 
 function debug(...args: any[]) {
@@ -32,7 +36,7 @@ export default class Map {
     const numberOfSlopes = this.rows.length / this.xIncrement;
     let count = 0;
     for (let i = 0; i < numberOfSlopes; i++) {
-      if (this.isTree(this.pos(this.x, this.y))) {
+      if (isTree(this.pos(this.x, this.y))) {
         count++;
       }
       this.x += this.xIncrement;
@@ -50,9 +54,5 @@ export default class Map {
       return this.pos(x, newY);
     }
     return square;
-  }
-
-  private isTree(s: string) {
-    return s === tree;
   }
 }

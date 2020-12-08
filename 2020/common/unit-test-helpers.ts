@@ -10,6 +10,6 @@ function test(name: string, fn: () => void | Promise<void>) {
 }
 
 export {
-  assertEquals,
-  test
+  test,
+  assertEquals
 }

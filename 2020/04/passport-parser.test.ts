@@ -1,4 +1,4 @@
-import {test, assertEquals} from "./unit-tests.ts";
+import {test, assertEquals} from "./../common/unit-test-helpers.ts";
 import PassportParser from "./passport-parser.ts";
 
 const data = await Deno.readTextFile("sample.txt");

@@ -1,4 +1,4 @@
-import {test, assertEquals} from "./unit-tests.ts";
+import {test, assertEquals} from "./../common/unit-test-helpers.ts";
 import PassportStrictRules from "./passport-strict-rules.ts";
 
 test("PassportStrictRules: valid passports examples", () => {
